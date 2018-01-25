@@ -9,8 +9,11 @@ public class CameraMotor : MonoBehaviour
     private Vector3 moveVector;
 
     private float transition = 0.0f;
+    [SerializeField]
     private float animationDuration = 3.0f;
     private Vector3 animationOffset = new Vector3(0, 5, 5);
+
+    public float AnimationDuration { get { return animationDuration; } set { AnimationDuration = animationDuration; } }
 
 	// Use this for initialization
 	void Start ()
