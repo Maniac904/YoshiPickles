@@ -15,6 +15,6 @@ public class PlayerMovement : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		transform.position = Vector3(transform.forward * speed);
+		cHrB.AddForce(transform.forward * speed * Time.deltaTime);
 	}
 }
