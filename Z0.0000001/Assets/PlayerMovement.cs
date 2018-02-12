@@ -5,16 +5,16 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour 
 {
 	public float speed = 0f;
-	public GameObject character;
+	public Rigidbody cHrB;
 	// Use this for initialization
 	void Start () 
 	{
-		
+		cHrB = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		character.transform.position = new Vector3(transform.position.x * speed * Time.deltaTime);
+		cHrB.transform.position += Vector3.forward * speed * Time.deltaTime;
 	}
 }
