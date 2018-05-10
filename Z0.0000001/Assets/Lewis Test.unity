@@ -762,10 +762,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cHrB: {fileID: 2076684208}
+  jumpHeight: 7
   speed: 1
+  grounded: 0
   left: 0
   right: 0
   slideLeft: 0
+  slideCenter: 0
   slideRight: 0
   turnAroundleft: 0
   turnAroundright: 0

@@ -5,11 +5,15 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour 
 {
     public Rigidbody cHrB;
+
+    public float jumpHeight = 0;
     public float speed = 0f;
-	
-    public bool left = false;
+
+    public bool grounded;
+    public bool left;
     public bool right;
     public bool slideLeft;
+    public bool slideCenter;
     public bool slideRight;
     public bool turnAroundleft;
     public bool turnAroundright;
@@ -20,23 +24,60 @@ public class PlayerMovement : MonoBehaviour
 	{
 		cHrB = GetComponent<Rigidbody>();
 
-        //left = Input.GetButtonDown("a");
-        right = Input.GetButtonDown("d");
-        slideLeft = Input.GetButtonDown("q");
-        slideRight = Input.GetButtonDown("e");
-        turnAroundleft = Input.GetButtonDown("x");
-        turnAroundright = Input.GetButtonDown("z");
-        jump = Input.GetButtonDown("space");
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		cHrB.transform.position += Vector3.forward * speed * Time.deltaTime;
+        Vector3 dwn = transform.TransformDirection(Vector3.down);
 
-        if(Input.GetButtonDown("A"))
+        if (Physics.Raycast(transform.position, dwn, 5))
+        {
+            grounded = true;
+        }
+
+        left = Input.GetKey("a");
+        right = Input.GetKey("d");
+        slideLeft = Input.GetKey("q");
+        slideCenter = Input.GetKey("w");
+        slideRight = Input.GetKey("e");
+        turnAroundleft = Input.GetKey("x");
+        turnAroundright = Input.GetKey("z");
+        jump = Input.GetKey("space");
+
+        cHrB.transform.position += Vector3.forward * speed * Time.deltaTime;
+
+        if(left)
         {
             TurnLeft();
+        }
+        if(right)
+        {
+            TurnRight();
+        }
+        if(slideLeft)
+        {
+            SlideLeft();
+        }
+        if(slideCenter)
+        {
+            SlideCenter();
+        }
+        if(slideRight)
+        {
+            SlideRight();
+        }
+        if(turnAroundleft)
+        {
+            TurnAroundLeft();
+        }
+        if(turnAroundright)
+        {
+            TurnAroundRight();
+        }
+        if(jump && grounded == true)
+        {
+            Jump();
         }
 	}
     void TurnLeft()
@@ -45,11 +86,15 @@ public class PlayerMovement : MonoBehaviour
     }
     void TurnRight()
     {
-
+        cHrB.transform.position += Vector3.right * speed * Time.deltaTime;
     }
     void SlideLeft()
     {
 
+    }
+    void SlideCenter()
+    {
+        cHrB.transform.Rotate(Vector3. * 90); 
     }
     void SlideRight()
     {
@@ -57,14 +102,14 @@ public class PlayerMovement : MonoBehaviour
     }
     void TurnAroundLeft()
     {
-
+        cHrB.transform.Rotate(Vector3.left * 180);
     }
     void TurnAroundRight()
     {
-
+        cHrB.transform.Rotate(Vector3.right * 180);
     }
     void Jump()
     {
-
+        cHrB.transform.position += Vector3.up * jumpHeight * Time.deltaTime;
     }
 }
