@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float jumpHeight = 0;
     public float speed = 0f;
+    public float rSpeed = 0;
 
     public bool grounded;
     public bool left;
@@ -90,11 +91,13 @@ public class PlayerMovement : MonoBehaviour
     }
     void SlideLeft()
     {
-
+        cHrB.transform.position += Vector3.left * speed * Time.deltaTime;
+        cHrB.transform.Rotate(0, 0, rSpeed * 75);
+        
     }
     void SlideCenter()
     {
-        cHrB.transform.Rotate(Vector3. * 90); 
+        cHrB.transform.Rotate(Vector3.left * rSpeed * 75);
     }
     void SlideRight()
     {
