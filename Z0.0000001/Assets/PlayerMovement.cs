@@ -6,7 +6,10 @@ public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody cHrB;
 
+    public float startingX = 0.0f;
+    public float startingY = 0.0f;
     public float startingZ = 0.0f;
+    
     public float jumpHeight = 0;
     public float speed = 0f;
     public float rSpeed = 0;
@@ -27,7 +30,10 @@ public class PlayerMovement : MonoBehaviour
 	{
 		cHrB = GetComponent<Rigidbody>();
 
+        startingX = transform.rotation.x;
+        startingY = transform.rotation.y;
         startingZ = transform.rotation.z;
+        
 	}
 	
 	// Update is called once per frame
@@ -52,7 +58,12 @@ public class PlayerMovement : MonoBehaviour
         cHrB.transform.position += Vector3.forward * speed * Time.deltaTime;
         
 
-        if(left)
+        if (slideRight == false || slideCenter == false || slideLeft == false && transform.rotation.x < startingX || transform.rotation.y < startingY || transform.rotation.z < startingZ)
+        {
+            transform.rotation = Quaternion.Euler(startingX, startingY, startingZ);
+        }
+
+        if (left)
         {
             TurnLeft();
         }
@@ -97,33 +108,24 @@ public class PlayerMovement : MonoBehaviour
     void SlideLeft()
     {
         cHrB.transform.position += Vector3.left * sSpeed * Time.deltaTime;
-        cHrB.transform.Rotate(0, 0, rSpeed * -15);
+        cHrB.transform.Rotate(0, 25, rSpeed * -18 );
 
-        if (transform.rotation.z < startingZ)
-        {
-            transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, startingZ);
-        }
+       
 
     }
     void SlideCenter()
     {
         cHrB.transform.position += Vector3.forward * sSpeed * Time.deltaTime;
-        cHrB.transform.Rotate(Vector3.left * rSpeed * 75);
+        cHrB.transform.Rotate(Vector3.left * rSpeed * -75);
 
-        if (transform.rotation.z < startingZ)
-        {
-            //transform.position = new Vector3(transform.position.x, transform.rotation.y, startingZ);
-        }
+       
     }
     void SlideRight()
     {
         cHrB.transform.position += Vector3.right * sSpeed * Time.deltaTime;
         cHrB.transform.Rotate(0, 0, rSpeed * 15);
 
-        if (transform.rotation.z < startingZ)
-        {
-            //transform.position = new Vector3(transform.position.x, transform.rotation.y, startingZ);
-        }
+       
     }
     void TurnAroundLeft()
     {
